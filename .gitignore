@@ -1,0 +1,5 @@
+# Python generated files
+__pycache__/
+*.pyc
+# Virtual environment folder (optional, but highly recommended)
+venv/
