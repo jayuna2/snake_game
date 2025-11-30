@@ -18,7 +18,7 @@ def game_loop():
             if event.type == pygame.QUIT:
                 start = False
         
-        character.movement(window, events)
+        character.snake_drawing(window)
         pygame.display.update()
         window.fill((0,0,0))
         
