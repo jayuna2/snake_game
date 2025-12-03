@@ -1,37 +1,65 @@
 import pygame
 import character
-
+from food import Food
+import ui
 
 def main_screen():
     pygame.init()
-    size = (800,500)
-    screen = pygame.display.set_mode(size)
-    pygame.display.set_caption('Snake Game')
+    screen = pygame.display.set_mode((800, 500))
+    pygame.display.set_caption("Snake Game")
     return screen
 
 def game_loop():
-    start = True
-    game_over = False
     window = main_screen()
-    screen_size = window.get_size()
+    width, height = window.get_size()
 
-    clock =pygame.time.Clock()
+    food = Food(width, height, 20)
+    score = 0
+    game_over = False
+
+    clock = pygame.time.Clock()
     SPEED = 8
-    while start:
-        events= pygame.event.get()
+
+    running = True
+    while running:
+        events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
-                start = False
+                running = False
 
-        if not game_over:    
+            if game_over and event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                return game_loop()  
+
+        if not game_over:
             character.user_input(events)
             character.snake_position()
 
-        if character.check(screen_size):
+        
+        head_x = character.snake_parts[0][0]
+        head_y = character.snake_parts[0][1]
+
+        
+        snake_rect = pygame.Rect(head_x, head_y, 20, 20)
+        food_rect = pygame.Rect(food.x, food.y, food.block_size, food.block_size)
+
+        if snake_rect.colliderect(food_rect):
+            score += 1
+            food.spawn()
+            character.snake_parts.append(character.snake_parts[-1].copy())
+
+        
+        if character.check((width, height)):
             game_over = True
 
-        window.fill((0,0,0))
+        
+        window.fill((0, 0, 0))
         character.snake_drawing(window)
+        food.draw(window)
+        ui.show_score(window, score)
+
+        if game_over:
+            ui.show_game_over(window, width, height)
+
         pygame.display.update()
         clock.tick(SPEED)
 
