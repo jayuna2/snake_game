@@ -80,3 +80,14 @@ def check(screen_size):
             return True
 
     return False
+
+
+def restart(events):
+    global snake_parts
+    for event in events:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                snake_parts = [
+            [x_head, y_head, head_width, head_height],
+            [x_body, y_body, body_width, body_height]
+            ]

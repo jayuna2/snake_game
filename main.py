@@ -26,6 +26,10 @@ def game_loop():
         for event in events:
             if event.type == pygame.QUIT:
                 running = False
+            
+            if event.type ==pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    character.restart(events)
 
             if game_over and event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                 return game_loop()  
@@ -51,14 +55,15 @@ def game_loop():
         if character.check((width, height)):
             game_over = True
 
+        background = pygame.image.load("photo/Untitled1design.png")
+        window.blit(background, (0,0))
         
-        window.fill((0, 0, 0))
         character.snake_drawing(window)
         food.draw(window)
         ui.show_score(window, score)
 
         if game_over:
-            ui.show_game_over(window, width, height)
+            ui.game_over_screen(window, width, height)
 
         pygame.display.update()
         clock.tick(SPEED)
