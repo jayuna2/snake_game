@@ -21,7 +21,7 @@ def game_loop():
     SPEED = 8
 
     background = pygame.image.load("photo/background.png")
-    help_image = pygame.image.load("photo\help.png")
+    help_image = pygame.image.load("photo/help.png")
 
     running = True
     start = False # to display starting text
