@@ -10,16 +10,22 @@ def show_score(screen, score):
     text = score_font.render("Score: " + str(score), True, (255, 255, 255))
     screen.blit(text, (10, 10))
 
+
 def game_over_screen(screen, width, height):
     game_over_text = game_over_font.render("GAME OVER", True, (255, 0, 0))
     restart_text = score_font.render("Press R to Restart", True, (255, 255, 255))
     screen.blit(game_over_text, (width // 3, height // 3))
     screen.blit(restart_text, (width // 3.2, height // 2))
 
+
 def start_text(screen):
     width, height = screen.get_size()
     instruction_text = instruction_font.render("Press Any key to start ", True, (255, 0, 0))
-    screen.blit(instruction_text, (width//2, height//2))
+
+    instruction_rect = instruction_text.get_rect()
+    instruction_rect.center =(400, 250)
+    screen.blit(instruction_text, instruction_rect)
+
 
 def help(screen):
     width, height = screen.get_size()

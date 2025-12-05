@@ -68,11 +68,11 @@ def game_loop():
 
 
         character.snake_drawing(window)
-        food.draw(window)
         ui.show_score(window, score)
         
 
         if not game_over and start:
+            food.draw(window)
             character.user_input(events)
             character.snake_position()
             
@@ -86,7 +86,7 @@ def game_loop():
         if show_help:
              window.blit(help_image, (0,0))
         
-        ui.help(window) # TO show help variable even after it is pressed, this is at last
+        ui.help(window) 
 
         pygame.display.update()
         clock.tick(SPEED)
